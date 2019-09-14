@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
         TabLayout tabLayout =(TabLayout) findViewById(R.id.tab_layout);
 
         //Naming Tabs
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 1 Item"));
+        tabLayout.addTab(tabLayout.newTab().setText("Headlines"));
         tabLayout.addTab(tabLayout.newTab().setText("Tab 2 Item"));
         tabLayout.addTab(tabLayout.newTab().setText("Tab 3 Item"));
 
