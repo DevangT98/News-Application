@@ -1,19 +1,20 @@
-package com.example.testapp;
+package com.example.dailyfeed;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,31 +29,54 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class TabOne extends Fragment {
+public class TabOne extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
    private RecyclerView recyclerView;
    private ArrayList<ListItems> listItems;
    NewsAdapter newsAdapter;
    private static final String REQUEST_URL = "https://newsapi.org/v2/top-headlines?country=in&apiKey=bfdf3e0e5847437facbf4092ba190098";
+   SwipeRefreshLayout swipeRefreshLayout;
 
-
+   @SuppressLint("ResourceAsColor")
    @Nullable
    @Override
    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
       View v = inflater.inflate(R.layout.fragment_1, container, false);
       recyclerView = v.findViewById(R.id.recycler_view);
       recyclerView.setHasFixedSize(true);
+      swipeRefreshLayout = v.findViewById(R.id.swipe_refresh);
       recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
       listItems = new ArrayList<>();
       recyclerView.setAdapter(newsAdapter);
-      loadRecyclerViewData();
+
+//      loadRecyclerViewData();
+
+     /* swipeRefreshLayout.setColorSchemeResources(R.color.swipe1,R.color.swipe2,R.color.swipe3);
+      swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+         @Override
+         public void onRefresh() {
+            swipeRefreshLayout.setRefreshing(true);
+            loadRecyclerViewData();
+            swipeRefreshLayout.setRefreshing(false);
+         }
+      });
+
+*/
+      swipeRefreshLayout.setOnRefreshListener(this);
+      swipeRefreshLayout.setColorSchemeResources(R.color.swipe1,R.color.swipe2,R.color.swipe3);
+      swipeRefreshLayout.post(new Runnable() {
+         @Override
+         public void run() {
+            swipeRefreshLayout.setRefreshing(true);
+         loadRecyclerViewData();
+         }
+      });
+
       return v;
    }
 
+
    private void loadRecyclerViewData() {
-
-      final ProgressBar progressBar = new ProgressBar(getContext());
-      progressBar.setVisibility(View.VISIBLE);
-
+      swipeRefreshLayout.setRefreshing(true);
       StringRequest stringRequest = new StringRequest(Request.Method.GET, REQUEST_URL, new Response.Listener<String>() {
          @Override
          public void onResponse(String response) {
@@ -66,7 +90,7 @@ public class TabOne extends Fragment {
                           jsonObject.getString("description"),
                           jsonObject.getString("urlToImage"),
                           jsonObject.getString("url"));
-                  progressBar.setVisibility(View.GONE);
+
                   listItems.add(listItem);
 
                }
@@ -76,15 +100,23 @@ public class TabOne extends Fragment {
             } catch (JSONException e) {
                e.printStackTrace();
             }
+            swipeRefreshLayout.setRefreshing(false);
          }
       }, new Response.ErrorListener() {
          @Override
          public void onErrorResponse(VolleyError error) {
+            swipeRefreshLayout.setRefreshing(false);
 
          }
       });
 
       RequestQueue requestQueue = Volley.newRequestQueue(getContext());
       requestQueue.add(stringRequest);
+   }
+
+
+   @Override
+   public void onRefresh() {
+   loadRecyclerViewData();
    }
 }

@@ -1,4 +1,4 @@
-package com.example.testapp;
+package com.example.dailyfeed;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

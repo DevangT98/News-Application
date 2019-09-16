@@ -1,4 +1,4 @@
-package com.example.testapp;
+package com.example.dailyfeed;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {

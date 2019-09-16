@@ -1,4 +1,4 @@
-package com.example.testapp;
+package com.example.dailyfeed;
 
 public class ListItems {
    private String mHeading;
