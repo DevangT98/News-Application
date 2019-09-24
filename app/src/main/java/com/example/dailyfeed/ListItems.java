@@ -5,12 +5,14 @@ public class ListItems {
    private String mDescription;
    private String mImageURL;
    private String mDetailURL;
+   private String mPublishedAt;
 
-   public ListItems(String mHeading, String mDescription, String mImageURL, String mDetailURL) {
+   public ListItems(String mHeading, String mDescription, String mImageURL, String mDetailURL,String mPublishedAt) {
       this.mHeading = mHeading;
       this.mDescription = mDescription;
       this.mImageURL = mImageURL;
       this.mDetailURL = mDetailURL;
+      this.mPublishedAt = mPublishedAt;
    }
 
    public String getmHeading() {
@@ -27,6 +29,9 @@ public class ListItems {
 
    public String getmDetailURL() {
       return mDetailURL;
+   }
+   public String getmPublishedAt(){
+      return mPublishedAt;
    }
 
 }

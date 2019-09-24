@@ -29,7 +29,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class TabOne extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class TabOne extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+
    private RecyclerView recyclerView;
    private ArrayList<ListItems> listItems;
    NewsAdapter newsAdapter;
@@ -43,6 +44,7 @@ public class TabOne extends Fragment implements SwipeRefreshLayout.OnRefreshList
       View v = inflater.inflate(R.layout.fragment_1, container, false);
       recyclerView = v.findViewById(R.id.recycler_view);
       recyclerView.setHasFixedSize(true);
+
       swipeRefreshLayout = v.findViewById(R.id.swipe_refresh);
       recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
       listItems = new ArrayList<>();
@@ -55,6 +57,7 @@ public class TabOne extends Fragment implements SwipeRefreshLayout.OnRefreshList
          @Override
          public void onRefresh() {
             swipeRefreshLayout.setRefreshing(true);
+
             loadRecyclerViewData();
             swipeRefreshLayout.setRefreshing(false);
          }
@@ -62,12 +65,12 @@ public class TabOne extends Fragment implements SwipeRefreshLayout.OnRefreshList
 
 */
       swipeRefreshLayout.setOnRefreshListener(this);
-      swipeRefreshLayout.setColorSchemeResources(R.color.swipe1,R.color.swipe2,R.color.swipe3);
+      swipeRefreshLayout.setColorSchemeResources(R.color.swipe1, R.color.swipe2, R.color.swipe3);
       swipeRefreshLayout.post(new Runnable() {
          @Override
          public void run() {
             swipeRefreshLayout.setRefreshing(true);
-         loadRecyclerViewData();
+            loadRecyclerViewData();
          }
       });
 
@@ -86,16 +89,17 @@ public class TabOne extends Fragment implements SwipeRefreshLayout.OnRefreshList
                JSONArray articles = baseobject.getJSONArray("articles");
                for (int i = 0; i < articles.length(); i++) {
                   JSONObject jsonObject = articles.getJSONObject(i);
-                  ListItems listItem =new ListItems(jsonObject.getString("title"),
+                  ListItems listItem = new ListItems(jsonObject.getString("title"),
                           jsonObject.getString("description"),
                           jsonObject.getString("urlToImage"),
-                          jsonObject.getString("url"));
+                          jsonObject.getString("url"),
+                          jsonObject.getString("publishedAt"));
 
                   listItems.add(listItem);
 
                }
 
-               NewsAdapter newsAdapter = new NewsAdapter(listItems,getActivity());
+               NewsAdapter newsAdapter = new NewsAdapter(listItems, getActivity());
                recyclerView.setAdapter(newsAdapter);
             } catch (JSONException e) {
                e.printStackTrace();
@@ -117,6 +121,6 @@ public class TabOne extends Fragment implements SwipeRefreshLayout.OnRefreshList
 
    @Override
    public void onRefresh() {
-   loadRecyclerViewData();
+      loadRecyclerViewData();
    }
 }
