@@ -50,20 +50,6 @@ public class TabOne extends Fragment implements SwipeRefreshLayout.OnRefreshList
       listItems = new ArrayList<>();
       recyclerView.setAdapter(newsAdapter);
 
-//      loadRecyclerViewData();
-
-     /* swipeRefreshLayout.setColorSchemeResources(R.color.swipe1,R.color.swipe2,R.color.swipe3);
-      swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-         @Override
-         public void onRefresh() {
-            swipeRefreshLayout.setRefreshing(true);
-
-            loadRecyclerViewData();
-            swipeRefreshLayout.setRefreshing(false);
-         }
-      });
-
-*/
       swipeRefreshLayout.setOnRefreshListener(this);
       swipeRefreshLayout.setColorSchemeResources(R.color.swipe1, R.color.swipe2, R.color.swipe3);
       swipeRefreshLayout.post(new Runnable() {

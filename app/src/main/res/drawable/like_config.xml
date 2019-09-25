@@ -3,7 +3,7 @@
 
     <item
         android:state_checked="false"
-        android:drawable="@drawable/ic_favorite_black_24dp"
+        android:drawable="@drawable/unlike_borderless"
         />
     <item android:state_checked="true"
         android:drawable="@drawable/like_red"/>

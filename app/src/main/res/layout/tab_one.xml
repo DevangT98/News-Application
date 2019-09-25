@@ -67,7 +67,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+
+                >
 
                 <!--<Button-->
                 <!--android:layout_width="wrap_content"-->
@@ -96,18 +98,17 @@
                     android:background="#ffffff"
                     android:tint="@color/shareCard"
                     app:srcCompat="@drawable/ic_menu_share"
-
                     />
 
-                <ImageButton
-                    style="?android:attr/borderlessButtonStyle"
+                <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/sharebtn"
-                    android:background="#ffffff"
-                    android:tint="@color/shareCard"
-                    android:id="@+id/likeIconButton"
-                    app:srcCompat="@drawable/ic_favorite_black_24dp" />
+                    android:id="@+id/likeCheckBox"
+                    android:layout_marginTop="12dp"
+                    android:button="@drawable/like_config"
+                    android:background="#fff"
+                    android:layout_toLeftOf="@id/sharebtn"
+                    />
             </RelativeLayout>
             <TextView
                 android:layout_width="match_parent"
