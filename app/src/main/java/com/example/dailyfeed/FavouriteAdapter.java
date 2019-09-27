@@ -77,7 +77,6 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
 
         TextView titleTabTwo,descTabTwo,publishedAtTabTwo;
         Button btnExplore;
-        CheckBox likeTabTwo;
         ImageButton shareTabTwo;
         ImageView imageNewsTabTwo;
         LinearLayout layoutTabTwo;
@@ -87,7 +86,6 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
             descTabTwo = itemView.findViewById(R.id.descTextView_tab_two);
             publishedAtTabTwo = itemView.findViewById(R.id.textViewPublishedAt_tab_two);
             btnExplore = itemView.findViewById(R.id.buttonExplore_tab_two);
-            likeTabTwo = itemView.findViewById(R.id.likeCheckBox_tab_two);
             shareTabTwo = itemView.findViewById(R.id.sharebtn_tab_two);
             imageNewsTabTwo = itemView.findViewById(R.id.image_news_tab_two);
             layoutTabTwo = itemView.findViewById(R.id.layout_tab_two);

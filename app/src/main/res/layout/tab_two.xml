@@ -93,7 +93,7 @@
                     app:srcCompat="@drawable/ic_menu_share"
                     />
 
-                <CheckBox
+               <!-- <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/likeCheckBox_tab_two"
@@ -101,7 +101,7 @@
                     android:button="@drawable/like_config"
                     android:background="#fff"
                     android:layout_toLeftOf="@id/sharebtn_tab_two"
-                    />
+                    />-->
             </RelativeLayout>
             <TextView
                 android:layout_width="match_parent"
