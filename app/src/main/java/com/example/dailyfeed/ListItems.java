@@ -1,5 +1,7 @@
 package com.example.dailyfeed;
 
+import javax.xml.transform.Source;
+
 public class ListItems {
    private String mHeading;
    private String mDescription;
@@ -7,12 +9,14 @@ public class ListItems {
    private String mDetailURL;
    private String mPublishedAt;
 
-   public ListItems(String mHeading, String mDescription, String mImageURL, String mDetailURL,String mPublishedAt) {
+
+   public ListItems(String mHeading, String mDescription, String mImageURL, String mDetailURL, String mPublishedAt) {
       this.mHeading = mHeading;
       this.mDescription = mDescription;
       this.mImageURL = mImageURL;
       this.mDetailURL = mDetailURL;
       this.mPublishedAt = mPublishedAt;
+
    }
 
    public String getmHeading() {
@@ -33,5 +37,13 @@ public class ListItems {
    public String getmPublishedAt(){
       return mPublishedAt;
    }
+
+
+
+   /*
+   public String getmSourceId(){
+      return mSourceId;
+   }
+*/
 
 }

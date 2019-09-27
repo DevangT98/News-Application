@@ -2,8 +2,6 @@ package com.example.dailyfeed;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +16,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.dailyfeed.Database.DailyFeedModel;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
@@ -27,8 +27,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
    private List<ListItems> listItems;
    private Context context;
-   SharedPreferences sp;
-   SharedPreferences.Editor editor;
 
    public NewsAdapter(List<ListItems> listItems, Context context) {
       this.listItems = listItems;
@@ -70,6 +68,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
          public void onClick(View v) {
             Intent i = new Intent(v.getContext(), ExploreNews.class);
             i.putExtra("newsUrl", listItems.get(position).getmDetailURL());
+//            Log.i("DEV",listItems.get(position).getmSourceId());
             v.getContext().startActivity(i);
          }
       });
@@ -87,15 +86,21 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
          @Override
          public void onClick(View v) {
             if (holder.heart.isChecked()) {
-              /* editor.putBoolean("liked",holder.heart.isChecked());
-               editor.putString("position", String.valueOf(listItems.get(position)));
-               editor.putString("heading",listItem.getmHeading());
-               editor.putString("desc",listItem.getmDescription());
-               editor.putString("url",listItem.getmDetailURL());
-               editor.putString("imageUrl",listItem.getmImageURL());
-               editor.commit();*/
+              ListItems like =listItems.get(position);
+               String desc = like.getmDescription();
+               String title = like.getmHeading();
+               String imgUrl = like.getmImageURL();
+               String date =like.getmPublishedAt();
+               String url =like.getmDetailURL();
+
+               holder.heart.setChecked(true);
+
+               DailyFeedModel.open();
+               DailyFeedModel.insert(position,title,desc,imgUrl,url,date);
+               DailyFeedModel.close();
                Toast.makeText(context, "Added to favourites", Toast.LENGTH_SHORT).show();
             } else {
+               holder.heart.setChecked(false);
               /* editor.putBoolean("unliked",holder.heart.isChecked());
                editor.commit();*/
                Toast.makeText(context, "Removed from favourites", Toast.LENGTH_SHORT).show();
@@ -130,8 +135,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
          newsImage = itemView.findViewById(R.id.image_news);
          linearLayout = itemView.findViewById(R.id.layout);
          publishedAt = itemView.findViewById(R.id.textViewPublishedAt);
-         sp = context.getSharedPreferences("dailyfeed", Context.MODE_PRIVATE);
-         editor = sp.edit();
+
 
       }
    }

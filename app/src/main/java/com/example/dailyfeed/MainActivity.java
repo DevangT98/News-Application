@@ -2,6 +2,7 @@ package com.example.dailyfeed;
 
 import android.os.Bundle;
 
+import com.example.dailyfeed.Database.DailyFeedModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity
 
         //Naming Tabs
         tabLayout.addTab(tabLayout.newTab().setText("Headlines"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 2 Item"));
+        tabLayout.addTab(tabLayout.newTab().setText("Favourites"));
         tabLayout.addTab(tabLayout.newTab().setText("Tab 3 Item"));
 
         //View Pager Initialization
@@ -68,6 +69,8 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+        DailyFeedModel.getInstance(getApplicationContext());
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
