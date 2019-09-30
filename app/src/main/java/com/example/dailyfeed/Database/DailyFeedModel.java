@@ -2,6 +2,7 @@ package com.example.dailyfeed.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -33,15 +34,15 @@ public class DailyFeedModel {
         sqLiteDatabase.close();
     }
 
-    public static void insert(int position, String title, String desc, String imgUrl, String url, String date) {
+    public static void insert(String title, String desc, String imgUrl, String url, String date, int checked) {
 
         ContentValues cv = new ContentValues();
-        cv.put(Keys.NEWS_ID,position);
         cv.put(Keys.NEWS_HEADER, title);
         cv.put(Keys.NEWS_DESC, desc);
         cv.put(Keys.NEWS_IMAGE_URL, imgUrl);
         cv.put(Keys.NEWS_URL, url);
         cv.put(Keys.NEWS_DATE, date);
+        cv.put(Keys.NEWS_LIKE, checked);
 
         sqLiteDatabase.insert(Keys.TB_NAME, null, cv);
         Log.i("DEV", "VALUES INSERTED SUCCESSFULLY!!");
@@ -58,21 +59,41 @@ public class DailyFeedModel {
 
         while (cr.moveToNext()) {
             String id = cr.getString(0);
-            String title = cr.getString(3);
-            String desc = cr.getString(2);
-            String imgUrl= cr.getString(4);
+            String title = cr.getString(2);
+            String desc = cr.getString(3);
+            String imgUrl = cr.getString(4);
             String url = cr.getString(1);
             String date = cr.getString(5);
-
-            favData.add(new FavouriteItems(id,title,desc,imgUrl,url,date));
-            Log.i("DEV","ID: "+id);
-            Log.i("DEV","TITLE: "+title);
-            Log.i("DEV","DESC: "+desc);
-            Log.i("DEV","IMAGE: "+imgUrl);
-            Log.i("DEV","URL: "+url);
-            Log.i("DEV","DATE: "+date);
-            Log.i("DEV","--------------------------------------------------------------------------------------------------------------------");
+            int checked = cr.getInt(6);
+            favData.add(new FavouriteItems(id, title, desc, imgUrl, url, date, checked));
+            Log.i("DEV", "ID: " + id);
+            Log.i("DEV", "TITLE: " + title);
+            Log.i("DEV", "DESC: " + desc);
+            Log.i("DEV", "IMAGE: " + imgUrl);
+            Log.i("DEV", "URL: " + url);
+            Log.i("DEV", "DATE: " + date);
+            Log.i("DEV", "CHECK: " + checked);
+            Log.i("DEV", "--------------------------------------------------------------------------------------------------------------------");
         }
         return favData;
+    }
+
+    public static void deleteFav(String viewId) {
+        String sql = "DELETE FROM " + Keys.TB_NAME + " WHERE " + Keys.NEWS_ID + " = " + viewId;
+        sqLiteDatabase.execSQL(sql);
+
+    }
+
+
+    public static  ArrayList<String> getAllIds(){
+
+        ArrayList<String> newsId =new ArrayList<>();
+        String sql = "SELECT "+Keys.NEWS_HEADER+ " FROM " +Keys.TB_NAME;
+        Cursor cr =sqLiteDatabase.rawQuery(sql,null);
+        while (cr.moveToNext()){
+            newsId.add(cr.getString(cr.getColumnIndex(Keys.NEWS_HEADER)));
+        }
+
+        return newsId;
     }
 }

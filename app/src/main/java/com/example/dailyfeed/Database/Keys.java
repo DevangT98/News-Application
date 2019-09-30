@@ -10,4 +10,5 @@ public class Keys {
    public static String NEWS_IMAGE_URL= "news_image_url";
    public static String NEWS_URL = "news_url";
    public static String NEWS_DATE ="news_date";
+   public static String NEWS_LIKE = "news_like";
 }

@@ -96,7 +96,7 @@ public class TabOne extends Fragment implements SwipeRefreshLayout.OnRefreshList
                 }
                 swipeRefreshLayout.setRefreshing(false);
             }
-        }, new Response.ErrorListener() {
+        },          new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 swipeRefreshLayout.setRefreshing(false);

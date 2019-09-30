@@ -39,7 +39,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         final  FavouriteItems favouriteItems = favData.get(position);
 
         holder.titleTabTwo.setText(favouriteItems.getTitle());
@@ -47,6 +47,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
         holder.publishedAtTabTwo.setText(favouriteItems.getPublishedAt());
         Picasso.get().load(favouriteItems.getImageUrl()).placeholder(R.drawable.user_placeholder)
                 .into(holder.imageNewsTabTwo);
+
 
         holder.btnExplore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +67,15 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
                 v.getContext().startActivity(i);
             }
         });
+
+        holder.deleteTabTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DailyFeedModel.open();
+                DailyFeedModel.deleteFav(favouriteItems.getViewId());
+                DailyFeedModel.close();
+            }
+        });
     }
 
     @Override
@@ -77,7 +87,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
 
         TextView titleTabTwo,descTabTwo,publishedAtTabTwo;
         Button btnExplore;
-        ImageButton shareTabTwo;
+        ImageButton shareTabTwo,deleteTabTwo;
         ImageView imageNewsTabTwo;
         LinearLayout layoutTabTwo;
         public ViewHolder(@NonNull View itemView) {
@@ -89,7 +99,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
             shareTabTwo = itemView.findViewById(R.id.sharebtn_tab_two);
             imageNewsTabTwo = itemView.findViewById(R.id.image_news_tab_two);
             layoutTabTwo = itemView.findViewById(R.id.layout_tab_two);
-
+            deleteTabTwo = itemView.findViewById(R.id.deletebtn_tab_two);
         }
     }
 }

@@ -7,19 +7,26 @@ public class FavouriteItems {
     private String imageUrl;
     private String detailUrl;
     private String publishedAt;
+    private int checked;
 
-    public FavouriteItems(String id, String title, String description, String imageUrl, String detailUrl, String publishedAt) {
+    public FavouriteItems(String id, String title, String description, String imageUrl, String detailUrl, String publishedAt, int checked) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.imageUrl = imageUrl;
         this.detailUrl = detailUrl;
         this.publishedAt = publishedAt;
+        this.checked = checked;
     }
 
-    public String getViewId(){
+    public int getChecked() {
+        return checked;
+    }
+
+    public String getViewId() {
         return id;
     }
+
     public String getTitle() {
         return title;
     }
