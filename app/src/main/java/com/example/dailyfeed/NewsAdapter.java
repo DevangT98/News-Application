@@ -2,6 +2,7 @@ package com.example.dailyfeed;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     private Context context;
     int checked = 0;
 
+
     public NewsAdapter(List<ListItems> listItems, Context context) {
         this.listItems = listItems;
         this.context = context;
@@ -46,7 +48,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final ListItems listItem = listItems.get(position);
-
         holder.heading.setText(listItem.getmHeading());
         holder.description.setText(listItem.getmDescription());
         holder.publishedAt.setText(listItem.getmPublishedAt());
@@ -75,7 +76,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                 v.getContext().startActivity(i);
             }
         });
-        ListItems like = listItems.get(position);
+        final ListItems like = listItems.get(position);
         final String url = like.getmDetailURL();
         final String desc = like.getmDescription();
         final String title = like.getmHeading();
@@ -85,10 +86,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
         DailyFeedModel.getInstance(context);
         DailyFeedModel.open();
-        ArrayList<String> alid = DailyFeedModel.getAllIds();
+        final ArrayList<String> alid = DailyFeedModel.getAllIds();
         if (alid.contains(title)) {
-            holder.heart.setChecked(true);
-            holder.heart.setBackgroundResource(R.drawable.like_red);
+            holder.heart.setChecked(true);/*
+            holder.heart.setBackgroundResource(R.drawable.like_red);*/
         } else {
             holder.heart.setChecked(false);
             holder.heart.setBackgroundResource(R.drawable.unlike_borderless);
@@ -102,8 +103,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
 
-
-
                 if (holder.heart.isChecked()) {
                     holder.heart.setChecked(true);
 
@@ -115,8 +114,22 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                     DailyFeedModel.close();
                     Toast.makeText(context, "Added to favourites", Toast.LENGTH_SHORT).show();
                 } else {
-                    holder.heart.setChecked(false);
+//                    holder.heart.setChecked(false);
                     checked = 0;
+        /*
+                    DailyFeedModel.open();
+                    DailyFeedModel.deleteFav(listItem.getmHeading());
+                    Log.i("DEV","DELETE ID: "+listItem.getmHeading());
+                    DailyFeedModel.close();
+
+*/
+                    DailyFeedModel.open();
+                    DailyFeedModel.deleteFav(listItems.get(position).getmHeading());
+                    Log.i("DEV", "Item deleted successfully");
+                    DailyFeedModel.close();
+
+                    Log.i("YAY", "TO DELETE: " + title);
+
                     Toast.makeText(context, "Removed from favourites", Toast.LENGTH_SHORT).show();
                 }
 

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.dailyfeed.FavouriteItems;
+import com.example.dailyfeed.ListItems;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,8 @@ public class DailyFeedModel {
 
     public static void insert(String title, String desc, String imgUrl, String url, String date, int checked) {
 
+        title=title.replaceAll("'","\\'");
+        title=title.replaceAll(";","\\;");
         ContentValues cv = new ContentValues();
         cv.put(Keys.NEWS_HEADER, title);
         cv.put(Keys.NEWS_DESC, desc);
@@ -43,6 +46,8 @@ public class DailyFeedModel {
         cv.put(Keys.NEWS_URL, url);
         cv.put(Keys.NEWS_DATE, date);
         cv.put(Keys.NEWS_LIKE, checked);
+
+
 
         sqLiteDatabase.insert(Keys.TB_NAME, null, cv);
         Log.i("DEV", "VALUES INSERTED SUCCESSFULLY!!");
@@ -65,6 +70,8 @@ public class DailyFeedModel {
             String url = cr.getString(1);
             String date = cr.getString(5);
             int checked = cr.getInt(6);
+            title=title.replaceAll("\\'","'");
+            title=title.replaceAll("\\;",";");
             favData.add(new FavouriteItems(id, title, desc, imgUrl, url, date, checked));
             Log.i("DEV", "ID: " + id);
             Log.i("DEV", "TITLE: " + title);
@@ -78,9 +85,20 @@ public class DailyFeedModel {
         return favData;
     }
 
-    public static void deleteFav(String viewId) {
-        String sql = "DELETE FROM " + Keys.TB_NAME + " WHERE " + Keys.NEWS_ID + " = " + viewId;
+    public static void deleteFav(String title) {
+        title=title.replaceAll("'","\\'");
+        //title=title.replaceAll(";","\\;");
+        Log.i("DEV", ""+title.replaceAll("'","\\$"));
+        /*sqLiteDatabase = dbHelper.getWritableDatabase();
+        sqLiteDatabase.delete(Keys.TB_NAME,Keys.NEWS_HEADER+ "="+title,null);
+
+        String q = "select * from Questions_answers where CHAPTERS = ?";
+        sqLiteDatabase.rawQuery(q, new String[] { title});*/
+        Log.i("DEV", "DELETE FROM " + Keys.TB_NAME + " WHERE " + Keys.NEWS_HEADER + " like '" + title + "'");
+        sqLiteDatabase.execSQL("DELETE FROM " + Keys.TB_NAME + " WHERE " + Keys.NEWS_HEADER + " like '" + title + "'");
+       /* String sql = "DELETE FROM " + Keys.TB_NAME + " WHERE " + Keys.NEWS_HEADER+ " = " + title;
         sqLiteDatabase.execSQL(sql);
+       */ Log.i("DEV","item deleted successfully");
 
     }
 
