@@ -33,17 +33,17 @@ public class TabThree extends Fragment {
     LocationCallback callback;
     FusedLocationProviderClient client;
     Location location;
-CollapsingToolbarLayout collapsingToolbarLayout;
+    CollapsingToolbarLayout collapsingToolbarLayout;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_3, container, false);
-//        about = v.findViewById(R.id.aboutTextView);
-        /*tp = v.findViewById(R.id.someText);
-        email = v.findViewById(R.id.email);
+        about = v.findViewById(R.id.aboutTextView);
+        email = v.findViewById(R.id.emailTextView);
         cords = v.findViewById(R.id.TextViewCoords);
         add = v.findViewById(R.id.TextViewAddr);
-        loca = v.findViewById(R.id.locationTextView);*/
+        loca = v.findViewById(R.id.locationTextView);
         imgview = v.findViewById(R.id.img);
         client = LocationServices.getFusedLocationProviderClient(getActivity());
         callback = new LocationCallback() {
@@ -54,7 +54,7 @@ CollapsingToolbarLayout collapsingToolbarLayout;
                 Log.i("DEV", "Location => " + location.getLatitude() + " , " + location.getLongitude());
                 double lat = location.getLatitude();
                 double longi = location.getLongitude();
-                cords.setText("Location:\n\n" + lat + " , " + longi);
+                cords.setText(lat + " , " + longi);
 
                 convertAddress(location.getLatitude(), location.getLongitude());
                 super.onLocationResult(locationResult);
@@ -86,7 +86,7 @@ CollapsingToolbarLayout collapsingToolbarLayout;
             Log.i("DEV", "Pin => " + ad.getPostalCode());
             Log.i("DEV", "Locality => " + ad.getLocality());
 
-            add.setText("Address:\n\n" + ad.getAddressLine(0));
+                add.setText(ad.getAddressLine(0));
 
         } catch (IOException e) {
             e.printStackTrace();

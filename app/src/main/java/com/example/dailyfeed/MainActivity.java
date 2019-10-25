@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity
         //Naming Tabs
         tabLayout.addTab(tabLayout.newTab().setText("Headlines"));
         tabLayout.addTab(tabLayout.newTab().setText("Favourites"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 3 Item"));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_camera_black_24dp));
+        tabLayout.addTab(tabLayout.newTab().setText("Contact Us"));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_cam));
 
         //View Pager Initialization
         final ViewPager viewPager =(ViewPager) findViewById(R.id.pager);
