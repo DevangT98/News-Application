@@ -1,5 +1,6 @@
 package com.example.dailyfeed;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.dailyfeed.Database.DailyFeedModel;
@@ -20,6 +21,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity
         tabLayout.addTab(tabLayout.newTab().setText("Headlines"));
         tabLayout.addTab(tabLayout.newTab().setText("Favourites"));
         tabLayout.addTab(tabLayout.newTab().setText("Tab 3 Item"));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_camera_black_24dp));
 
         //View Pager Initialization
         final ViewPager viewPager =(ViewPager) findViewById(R.id.pager);
@@ -130,6 +134,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
+            /*Intent i = new Intent(MainActivity.this,Contact.class);
+            startActivity(i);*/
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -138,8 +144,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
         }
+
+
+
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -2,11 +2,66 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:src="@drawable/contact"
+    android:layout_marginTop="45dp"
+    android:id="@+id/img"/>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:id="@+id/tab_three"
-        android:text="Hey! Welcome to Tab 3"/>
+        android:text="About Us"
+        android:textSize="45dp"
+        android:id="@+id/aboutTextView"
+        android:layout_marginTop="50dp"
+        android:textColor="#000080"/>
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Bussiness Address: : New Office, Mahavir Lane, Vikroli, Mumbai-400045 "
+    android:id="@+id/someText"
+    android:textSize="25dp"
+    android:gravity="center"
+android:textColor="#000080"
+    />
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:textSize="25dp"
+    android:textColor="#000080"
+    android:text="Email Id: dailyfeed@gmail.com"
+    android:id="@+id/email"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:layout_marginTop="45dp"
+        android:text="Location"
+        android:id="@+id/locationTextView"
+        android:textColor="#000080"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/TextViewCoords"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"
+
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/TextViewAddr"
+        android:textSize="20sp"
+        android:layout_marginTop="35dp"
+        android:gravity="center_horizontal"
+        />
 
 </LinearLayout>
