@@ -44,10 +44,10 @@ public class MainActivity extends AppCompatActivity
         TabLayout tabLayout =(TabLayout) findViewById(R.id.tab_layout);
 
         //Naming Tabs
-        tabLayout.addTab(tabLayout.newTab().setText("Headlines"));
-        tabLayout.addTab(tabLayout.newTab().setText("Favourites"));
-        tabLayout.addTab(tabLayout.newTab().setText("Contact Us"));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_cam));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_headline).setText("Headlines"));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_like).setText("Favourites"));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_information).setText("About Us"));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_cam).setText("Camera"));
 
         //View Pager Initialization
         final ViewPager viewPager =(ViewPager) findViewById(R.id.pager);
