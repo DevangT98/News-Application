@@ -22,6 +22,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,17 +33,17 @@ public class TabThree extends Fragment {
     LocationCallback callback;
     FusedLocationProviderClient client;
     Location location;
-
+CollapsingToolbarLayout collapsingToolbarLayout;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_3, container, false);
-        about = v.findViewById(R.id.aboutTextView);
-        tp = v.findViewById(R.id.someText);
+//        about = v.findViewById(R.id.aboutTextView);
+        /*tp = v.findViewById(R.id.someText);
         email = v.findViewById(R.id.email);
         cords = v.findViewById(R.id.TextViewCoords);
         add = v.findViewById(R.id.TextViewAddr);
-        loca = v.findViewById(R.id.locationTextView);
+        loca = v.findViewById(R.id.locationTextView);*/
         imgview = v.findViewById(R.id.img);
         client = LocationServices.getFusedLocationProviderClient(getActivity());
         callback = new LocationCallback() {
