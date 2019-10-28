@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dailyfeed.Database.DailyFeedModel;
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -110,9 +111,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                     checked = 1;
                     DailyFeedModel.open();
                     DailyFeedModel.insert(title, desc, imgUrl, url, date, checked);
-
                     DailyFeedModel.close();
-                    Toast.makeText(context, "Added to favourites", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(v,"Added to favourites",Snackbar.LENGTH_LONG).setAction("UNDO", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            DailyFeedModel.open();
+                            DailyFeedModel.deleteFav(listItems.get(position).getmHeading());
+                            Log.i("DEV", "Item deleted successfully");
+                            DailyFeedModel.close();
+
+                        }
+                    }).show();
                 } else {
 //                    holder.heart.setChecked(false);
                     checked = 0;
@@ -130,7 +139,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
                     Log.i("YAY", "TO DELETE: " + title);
 
-                    Toast.makeText(context, "Removed from favourites", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(v,"Removed from favourites",Snackbar.LENGTH_LONG).setAction("UNDO", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            DailyFeedModel.open();
+                            DailyFeedModel.insert(title, desc, imgUrl, url, date, checked);
+
+                            DailyFeedModel.close();
+                        }
+                    }).show();
                 }
 
             /*DailyFeedModel.open();

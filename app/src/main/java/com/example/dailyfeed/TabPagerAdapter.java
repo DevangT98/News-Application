@@ -29,6 +29,12 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
             case 3:
                 TabFour tab4 = new TabFour();
                 return tab4;
+            case 4:
+                TabFive tab5 = new TabFive();
+                return tab5;
+            case 5:
+                TabSix tab6 = new TabSix();
+                return tab6;
             default:
                 return null;
         }

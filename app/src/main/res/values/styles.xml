@@ -24,4 +24,15 @@
         <item name="colorAccent">#FFAB40</item>
     </style>
 
+    <style name="Register" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">#086FE5</item>
+        <item name="colorPrimaryDark">#086FE5</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="Splash" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">#fff</item>
+        <item name="colorPrimaryDark">#fff</item>
+        <item name="colorAccent">#fff</item>
+    </style>
+
 </resources>
