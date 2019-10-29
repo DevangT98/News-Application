@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
             i.putExtra("uname", userDb);
             startActivity(i);
             finish();
+            Toast.makeText(this,"Login Successful",Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show();
             edtuser.setText("");
