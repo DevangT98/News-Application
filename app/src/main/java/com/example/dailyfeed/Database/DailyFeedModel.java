@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.example.dailyfeed.FavouriteItems;
 import com.example.dailyfeed.ListItems;
+import com.example.dailyfeed.PostItems;
 
 import java.util.ArrayList;
 
@@ -37,8 +38,8 @@ public class DailyFeedModel {
 
     public static void insert(String title, String desc, String imgUrl, String url, String date, int checked) {
 
-        title=title.replaceAll("'","\\'");
-        title=title.replaceAll(";","\\;");
+        title = title.replaceAll("'", "\\'");
+        title = title.replaceAll(";", "\\;");
         ContentValues cv = new ContentValues();
         cv.put(Keys.NEWS_HEADER, title);
         cv.put(Keys.NEWS_DESC, desc);
@@ -46,7 +47,6 @@ public class DailyFeedModel {
         cv.put(Keys.NEWS_URL, url);
         cv.put(Keys.NEWS_DATE, date);
         cv.put(Keys.NEWS_LIKE, checked);
-
 
 
         sqLiteDatabase.insert(Keys.TB_NAME, null, cv);
@@ -70,8 +70,8 @@ public class DailyFeedModel {
             String url = cr.getString(1);
             String date = cr.getString(5);
             int checked = cr.getInt(6);
-            title=title.replaceAll("\\'","'");
-            title=title.replaceAll("\\;",";");
+            title = title.replaceAll("\\'", "'");
+            title = title.replaceAll("\\;", ";");
             favData.add(new FavouriteItems(id, title, desc, imgUrl, url, date, checked));
             Log.i("DEV", "ID: " + id);
             Log.i("DEV", "TITLE: " + title);
@@ -86,9 +86,9 @@ public class DailyFeedModel {
     }
 
     public static void deleteFav(String title) {
-        title=title.replaceAll("'","\\'");
+        title = title.replaceAll("'", "\\'");
         //title=title.replaceAll(";","\\;");
-        Log.i("DEV", ""+title.replaceAll("'","\\$"));
+        Log.i("DEV", "" + title.replaceAll("'", "\\$"));
         /*sqLiteDatabase = dbHelper.getWritableDatabase();
         sqLiteDatabase.delete(Keys.TB_NAME,Keys.NEWS_HEADER+ "="+title,null);
 
@@ -98,20 +98,48 @@ public class DailyFeedModel {
         sqLiteDatabase.execSQL("DELETE FROM " + Keys.TB_NAME + " WHERE " + Keys.NEWS_HEADER + " like '" + title + "'");
        /* String sql = "DELETE FROM " + Keys.TB_NAME + " WHERE " + Keys.NEWS_HEADER+ " = " + title;
         sqLiteDatabase.execSQL(sql);
-       */ Log.i("DEV","item deleted successfully");
+       */
+        Log.i("DEV", "item deleted successfully");
 
     }
 
 
-    public static  ArrayList<String> getAllIds(){
+    public static ArrayList<String> getAllIds() {
 
-        ArrayList<String> newsId =new ArrayList<>();
-        String sql = "SELECT "+Keys.NEWS_HEADER+ " FROM " +Keys.TB_NAME;
-        Cursor cr =sqLiteDatabase.rawQuery(sql,null);
-        while (cr.moveToNext()){
+        ArrayList<String> newsId = new ArrayList<>();
+        String sql = "SELECT " + Keys.NEWS_HEADER + " FROM " + Keys.TB_NAME;
+        Cursor cr = sqLiteDatabase.rawQuery(sql, null);
+        while (cr.moveToNext()) {
             newsId.add(cr.getString(cr.getColumnIndex(Keys.NEWS_HEADER)));
         }
 
         return newsId;
     }
+
+    public static void insertPost(String caption, String selectedImagePath) {
+        ContentValues cv = new ContentValues();
+        cv.put(Keys.N_CAPTION, caption);
+        cv.put(Keys.N_IMAGE, selectedImagePath);
+        sqLiteDatabase.insert(Keys.TB_NAME1, null, cv);
+        Log.i("YAY", "VALUES INSERTED SUCCESSFULLY!!");
+    }
+
+
+    public static ArrayList<PostItems> showPosts() {
+        ArrayList<PostItems> postItems = new ArrayList<>();
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        String sql = "SELECT * FROM " + Keys.TB_NAME1;
+        Cursor cr = sqLiteDatabase.rawQuery(sql, null);
+        while (cr.moveToNext()) {
+
+            String id = cr.getString(0);
+            String caption = cr.getString(1);
+            String image = cr.getString(2);
+            Log.i("YAY", "caption--->" + caption);
+            Log.i("YAY", "image--->" + image);
+            postItems.add(new PostItems(id, caption, image));
+        }
+        return postItems;
+    }
+
 }

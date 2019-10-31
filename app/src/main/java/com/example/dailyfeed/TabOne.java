@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,14 +31,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TabOne extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private RecyclerView recyclerView;
     private ArrayList<ListItems> listItems;
     NewsAdapter newsAdapter;
-    private static final String REQUEST_URL = "https://newsapi.org/v2/top-headlines?country=in&apiKey=bfdf3e0e5847437facbf4092ba190098";
+  private static  String REQUEST_URL = "";
+  //private static final String REQUEST_URL = "https://newsapi.org/v2/sources?apiKey=bfdf3e0e5847437facbf4092ba190098#";
     SwipeRefreshLayout swipeRefreshLayout;
+    String country="us";
 
     @SuppressLint("ResourceAsColor")
     @Nullable
@@ -46,7 +51,7 @@ public class TabOne extends Fragment implements SwipeRefreshLayout.OnRefreshList
         View v = inflater.inflate(R.layout.fragment_1, container, false);
         recyclerView = v.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-
+         REQUEST_URL = "https://newsapi.org/v2/top-headlines?country="+country+"&apiKey=bfdf3e0e5847437facbf4092ba190098";
         swipeRefreshLayout = v.findViewById(R.id.swipe_refresh);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         listItems = new ArrayList<>();
@@ -96,13 +101,21 @@ public class TabOne extends Fragment implements SwipeRefreshLayout.OnRefreshList
                 }
                 swipeRefreshLayout.setRefreshing(false);
             }
-        },          new Response.ErrorListener() {
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 swipeRefreshLayout.setRefreshing(false);
 
             }
-        });
+        }){
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String,String> params=new HashMap<>();
+//                params.put("country","us");
+//
+//                return  params;
+//            }
+        };
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);

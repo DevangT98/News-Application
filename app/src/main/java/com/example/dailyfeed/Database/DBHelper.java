@@ -13,6 +13,11 @@ public class DBHelper extends SQLiteOpenHelper {
            + Keys.NEWS_DESC + " text not null," + Keys.NEWS_IMAGE_URL + " text not null," + Keys.NEWS_DATE + " text not null,"+
            Keys.NEWS_LIKE + " integer)";
 
+
+
+   String createTable = "create table " + Keys.TB_NAME1 + "(" + Keys.N_ID + " integer primary key autoincrement," + Keys.N_CAPTION+ " text not null,"
+           + Keys.N_IMAGE + " text not null)";
+
    public DBHelper(Context context) {
       super(context, Keys.DB_NAME, null, Keys.DB_VERSION);
       Log.i("DEV", create_table);
@@ -20,9 +25,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
    @Override
    public void onCreate(SQLiteDatabase db) {
-//      Log.i("DEV", create_table);
+      Log.i("DEV", create_table);
       db.execSQL(create_table);
-
+      db.execSQL(createTable);
    }
 
    @Override

@@ -16,6 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".PostImage"></activity>
+
         <receiver android:name=".DailyFeedWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -40,7 +42,7 @@
             android:theme="@style/Register" />
         <activity
             android:name=".RegisterActivity"
-            android:theme="@style/Register"></activity>
+            android:theme="@style/Register" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

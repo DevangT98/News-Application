@@ -15,22 +15,38 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.dailyfeed.Database.DailyFeedModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 public class TabFour extends Fragment {
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1888;
     Button btn;
     ImageView imageView;
+    RecyclerView recyclerView;
+    //PostAdapter postAdapter;
+    ArrayList<PostItems> postItems;
+    FloatingActionButton floatingActionButton;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.fragment_4,container,false);
-        btn = rootView.findViewById(R.id.btn);
-        imageView = rootView.findViewById(R.id.iv);
-
-        btn.setOnClickListener(new View.OnClickListener() {
+        final View rootView = inflater.inflate(R.layout.fragment_4, container, false);
+        recyclerView = rootView.findViewById(R.id.recycler_view_fragment_four);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        DailyFeedModel.open();
+        postItems=new ArrayList<>();
+        postItems = DailyFeedModel.showPosts();
+        DailyFeedModel.close();
+        PostAdapter postAdapter=new PostAdapter(postItems,getActivity());
+        recyclerView.setAdapter(postAdapter);
+        /*btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -39,7 +55,20 @@ public class TabFour extends Fragment {
                         CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 
             }
+        });*/
+
+        floatingActionButton = rootView.findViewById(R.id.fab_camera);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                        Intent i = new Intent(getActivity(),PostImage.class);
+                        startActivity(i);
+
+
+            }
         });
+
+
 
         return rootView;
 

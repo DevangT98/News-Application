@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:padding="20dp">
+<!--
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,22 +14,29 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Capture Image" />
+        android:text="Capture Image" />-->
 
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:scaleType="fitXY"
-
-        android:id="@+id/iv"/>
-
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recycler_view_fragment_four">
+    </androidx.recyclerview.widget.RecyclerView>
+    <!--<TextView
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:textSize="30dp"
         android:gravity="center"
         android:layout_marginTop="90dp"
-        android:text="DISPLAY IMAGE" />
-</LinearLayout>
+        android:text="DISPLAY IMAGE" />&ndash;&gt;
+    -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        app:srcCompat="@drawable/ic_camera_black_24dp"
+        android:id="@+id/fab_camera"
+        />
+</RelativeLayout>
