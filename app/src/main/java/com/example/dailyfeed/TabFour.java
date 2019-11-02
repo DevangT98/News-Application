@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.dailyfeed.Database.DailyFeedModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,13 +25,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
-public class TabFour extends Fragment {
+public class TabFour extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1888;
     Button btn;
     ImageView imageView;
     RecyclerView recyclerView;
     //PostAdapter postAdapter;
     ArrayList<PostItems> postItems;
+    SwipeRefreshLayout swipeRefreshLayout;
+
     FloatingActionButton floatingActionButton;
 
     @Nullable
@@ -38,14 +41,24 @@ public class TabFour extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_4, container, false);
         recyclerView = rootView.findViewById(R.id.recycler_view_fragment_four);
+        swipeRefreshLayout = rootView.findViewById(R.id.swipe_refresh_fragment_4);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        DailyFeedModel.open();
-        postItems=new ArrayList<>();
-        postItems = DailyFeedModel.showPosts();
-        DailyFeedModel.close();
-        PostAdapter postAdapter=new PostAdapter(postItems,getActivity());
-        recyclerView.setAdapter(postAdapter);
+//        postItems=new ArrayList<>();
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeResources(R.color.swipe1, R.color.swipe2, R.color.swipe3);
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                DailyFeedModel.open();
+                postItems = DailyFeedModel.showPosts();
+                DailyFeedModel.close();
+                PostAdapter postAdapter=new PostAdapter(postItems,getActivity());
+                recyclerView.setAdapter(postAdapter);
+
+
+            }
+        });
         /*btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,11 +81,22 @@ public class TabFour extends Fragment {
             }
         });
 
-
-
         return rootView;
 
     }
+    @Override
+    public void onRefresh() {
+        swipeRefreshLayout.setRefreshing(true);
+        DailyFeedModel.open();
+//        postItems=new ArrayList<>();
+        postItems = DailyFeedModel.showPosts();
+        DailyFeedModel.close();
+        PostAdapter postAdapter=new PostAdapter(postItems,getActivity());
+        recyclerView.setAdapter(postAdapter);
+        swipeRefreshLayout.setRefreshing(false);
+
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

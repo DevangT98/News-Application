@@ -1,6 +1,8 @@
 package com.example.dailyfeed;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +32,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,10 +42,13 @@ public class TabOne extends Fragment implements SwipeRefreshLayout.OnRefreshList
     private RecyclerView recyclerView;
     private ArrayList<ListItems> listItems;
     NewsAdapter newsAdapter;
-  private static  String REQUEST_URL = "";
-  //private static final String REQUEST_URL = "https://newsapi.org/v2/sources?apiKey=bfdf3e0e5847437facbf4092ba190098#";
+    SharedPreferences sp;
+    private String REQUEST_URL = "";
+    //private static final String REQUEST_URL = "https://newsapi.org/v2/sources?apiKey=bfdf3e0e5847437facbf4092ba190098#";
+    String country = "";
+    //    String REQUEST_URL ="https://newsapi.org/v2/top-headlines?country="+country+"&apiKey=bfdf3e0e5847437facbf4092ba190098";
     SwipeRefreshLayout swipeRefreshLayout;
-    String country="us";
+//    String country = "in";
 
     @SuppressLint("ResourceAsColor")
     @Nullable
@@ -51,12 +57,16 @@ public class TabOne extends Fragment implements SwipeRefreshLayout.OnRefreshList
         View v = inflater.inflate(R.layout.fragment_1, container, false);
         recyclerView = v.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-         REQUEST_URL = "https://newsapi.org/v2/top-headlines?country="+country+"&apiKey=bfdf3e0e5847437facbf4092ba190098";
+       /* sp = this.getActivity().getSharedPreferences("countrycode", Context.MODE_PRIVATE);
+        country = sp.getString("countryname", "in");
+        Log.i("YAY", "COUNTRY TAB ONE-->" + country);
+       */ //REQUEST_URL = "https://newsapi.org/v2/top-headlines?country="+country+"&apiKey=bfdf3e0e5847437facbf4092ba190098";
         swipeRefreshLayout = v.findViewById(R.id.swipe_refresh);
+        sp = this.getActivity().getSharedPreferences("countrycode", Context.MODE_PRIVATE);
+        country = sp.getString("countryname", "in");
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         listItems = new ArrayList<>();
         recyclerView.setAdapter(newsAdapter);
-
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setColorSchemeResources(R.color.swipe1, R.color.swipe2, R.color.swipe3);
         swipeRefreshLayout.post(new Runnable() {
@@ -64,6 +74,8 @@ public class TabOne extends Fragment implements SwipeRefreshLayout.OnRefreshList
             public void run() {
                 swipeRefreshLayout.setRefreshing(true);
                 loadRecyclerViewData();
+                /*sp = getActivity().getSharedPreferences("countrycode", Context.MODE_PRIVATE);
+                country = sp.getString("countryname","in");*/
             }
         });
 
@@ -73,6 +85,10 @@ public class TabOne extends Fragment implements SwipeRefreshLayout.OnRefreshList
 
     private void loadRecyclerViewData() {
         swipeRefreshLayout.setRefreshing(true);
+        country = sp.getString("countryname", "in");
+        REQUEST_URL = "https://newsapi.org/v2/top-headlines?country=" + country + "&apiKey=bfdf3e0e5847437facbf4092ba190098";
+        Log.i("YAY", "COUNTRY TAB ONE-->" + country);
+        Log.i("YAY", "URL TAB ONE-->" + REQUEST_URL);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, REQUEST_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -89,13 +105,13 @@ public class TabOne extends Fragment implements SwipeRefreshLayout.OnRefreshList
                                 jsonObject.getString("urlToImage"),
                                 jsonObject.getString("url"),
                                 jsonObject.getString("publishedAt"));
-
-
                         listItems.add(listItem);
                     }
 
                     NewsAdapter newsAdapter = new NewsAdapter(listItems, getActivity());
                     recyclerView.setAdapter(newsAdapter);
+
+                    newsAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -107,7 +123,7 @@ public class TabOne extends Fragment implements SwipeRefreshLayout.OnRefreshList
                 swipeRefreshLayout.setRefreshing(false);
 
             }
-        }){
+        }) {
 //            @Override
 //            protected Map<String, String> getParams() throws AuthFailureError {
 //                Map<String,String> params=new HashMap<>();

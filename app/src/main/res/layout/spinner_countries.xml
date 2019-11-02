@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:text="Choose Country"
+    android:textColor="@color/colorAccent"
+    android:textSize="40dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginBottom="30dp"
+    android:fontFamily="serif-monospace"
+    android:textStyle="bold"
+    />
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="10dp"
+        android:outlineAmbientShadowColor="@color/colorPrimary"
+        android:background="@drawable/login_border"
+        android:padding="10dp"
+        android:scrollbarSize="30dp"
+        android:entries="@array/codes"
+        android:prompt="@array/countries"
+        android:id="@+id/spinnerCountry"
+        ></androidx.appcompat.widget.AppCompatSpinner>
+
+</LinearLayout>

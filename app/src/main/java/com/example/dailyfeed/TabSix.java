@@ -15,7 +15,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 public class TabSix extends Fragment {
-    VideoView videoView;
+    VideoView videoView1,videoView2,videoView3;
 
 
 //    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -23,11 +23,19 @@ public class TabSix extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_6, container, false);
-        videoView = (VideoView) rootView.findViewById(R.id.video);
-        MediaController mc = new MediaController(getContext());
-        String path = "android.resource://" + getContext().getPackageName() + "/" + R.raw.shark;
-        videoView.setVideoURI(Uri.parse(path));
-        videoView.setMediaController(mc);
+
+        videoView2 = (VideoView) rootView.findViewById(R.id.video2);
+        MediaController mc1 = new MediaController(getContext());
+        String path1 = "android.resource://" + getContext().getPackageName() + "/" + R.raw.videotwo;
+        videoView2.setVideoURI(Uri.parse(path1));
+        videoView2.setMediaController(mc1);
+
+
+        videoView3 = (VideoView) rootView.findViewById(R.id.video3);
+        MediaController mc2 = new MediaController(getContext());
+        String path2 = "android.resource://" + getContext().getPackageName() + "/" + R.raw.videothree;
+        videoView3.setVideoURI(Uri.parse(path2));
+        videoView3.setMediaController(mc2);
         return rootView;
     }
 }

@@ -58,6 +58,9 @@ public class PostImage extends AppCompatActivity {
                 DailyFeedModel.insertPost(caption,selectedImagePath);
                 DailyFeedModel.close();
 
+                imageViewPost.setImageResource(0);
+                editTextPost.setText("");
+
             }
         });
 

@@ -5,31 +5,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_gravity="center"
+    android:orientation="vertical"
     android:padding="20dp"
     tools:context=".TabSix">
-
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="PLAY VIDEO"
-        android:gravity="center"
         android:layout_gravity="center"
-        android:textSize="30dp"
         android:fontFamily="monospace"
+        android:gravity="center"
+        android:text="PLAY VIDEO"
         android:textColor="@color/colorAccent"
-        />
+        android:textSize="30dp" />
+
 
     <VideoView
-        android:layout_marginTop="150dp"
+        android:id="@+id/video2"
         android:layout_width="match_parent"
+        android:layout_height="220dp"
         android:layout_gravity="center"
-        android:layout_height="match_parent"
-        android:id="@+id/video"
-        />
+        android:layout_marginTop="70dp" />
 
+    <VideoView
+        android:id="@+id/video3"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp" />
 
 
 </LinearLayout>

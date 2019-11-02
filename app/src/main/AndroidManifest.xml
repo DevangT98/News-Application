@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PostImage"></activity>
+        <activity android:name=".CountryPref"></activity>
+        <activity android:name=".PostImage" />
 
         <receiver android:name=".DailyFeedWidget">
             <intent-filter>
