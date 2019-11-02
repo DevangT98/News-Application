@@ -109,6 +109,16 @@
                     android:background="#fff"
                     android:layout_toLeftOf="@id/sharebtn"
                     />
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/likeCheckBox"
+                    android:layout_marginRight="35dp"
+                    app:srcCompat="@drawable/ic_volume_up_black_24dp"
+                    android:background="#fff"
+                    android:layout_marginTop="13dp"
+                    android:id="@+id/speakerButton"
+                    />
             </RelativeLayout>
             <TextView
                 android:layout_width="match_parent"
